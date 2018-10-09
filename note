@@ -1,0 +1,126 @@
+
+
+tensorflow 的系统框架：
+
+front end ： c++ python java others：  给用户的语言接口；
+C API:
+很多图的计算，管理session的周期；tensorflow都是基于会话的模式；
+
+distributed Runtime:
+distributed master（用于分布式的操作；用户的一些操作会经过这个操作；） work services（是一个工作站；） dataflow executor（数据流的执行器）
+
+kernel implements:
+
+network layer:（网络协议）    device layer
+RPC RDMA                        GPU CPU
+
+
+tensorflow 的基本的要素：
+1：张量
+2：图（graph），每一个操作节点，构成的一个图；
+3：会话：（session）一个操作从开始到结尾的过程；
+
+张量的维度描述为阶，但是张量的阶和举证的阶并不是一个概念，张量的阶，是张量维度的一个数量描述；
+张量是具有流动性；
+3，也就是纯量
+v = [1,1,1,1] 一阶张量，也就是向量
+t = [[11,11,],[11,11]] 二阶张量
+
+图：表示模型的数据流：由ops和tensor组成，ops相当于节点，也就是操作；tensor是数据流；也就是边；
+算法都会表示成计算图（computational graphs）
+也称之为数据流图；我们可以把计算图堪称一种邮箱图；张量就是通过各种操作在有向图中流动；
+
+
+要想启动一个图：必须要创建一个会话；
+tensorflow中所有的图都是在会话中完成的；
+
+tensorflow基本原理及模型的训练：
+开始
+定义数据集
+定义模型；输入和输出，如何进行处理的；（也就是网络，如rnn）
+编写程序并训练模型；
+    一般不会把训练数据和测试数据没有包含关系；
+模型的测试；
+
+1：训练集尽可能大；
+2：训练集和测试集的结构要一致；
+3：调节参数；（训练多少轮）训练的次数过多可能会导致过拟合；训练过程少可能会欠拟合；
+4：损失函数：
+    参数调优
+    数据的优化；
+
+
+
+Android 系统介绍；
+什么是它：
+是基于linux的自由及开放源代码的操作系统，主要用于移动设备；
+嵌入式设备；
+
+分层的架构：
+    1：应用程序曾 ：包含了一切重要的程序：如：home，contacts phone，brower：android系统自带的必备的服务；
+    2：应用程序架构层：（普通开发者需要掌握的层）
+        activity manager ：活动管理：管理应用程序的生存周期
+        windows manager，窗口管理接口；等其他框架接口；界面的跳动
+        content providers：一个应用程序的可以访问另一个应用程序的数据；
+        viewsystem：视图，界面的；各种UI组件；
+        notefication manager ：通知管理
+        pakage manage：包管理，操作系统的唯一性，是通过包来的
+        telephony manage：手机通信：信用卡的状态，电话网络状态；
+        resource manager：资源管理；
+        location manager：地图管理；获取位置；
+        xmpp：可扩展的服务：通信服务；
+
+
+
+    3：系统运行库层（函数库）：如位置，媒体服务等
+        surface：显示系统资源，显示系统的包；显示子系统的管理，为应用程序体统2D或者是3D的融合；
+        media framework ：媒体
+        SQLite：android的数据库
+        OpenGLES：3D加速的库；
+        freeType：向量的显示
+        webkit：支持安卓浏览器；嵌入相关；
+        SGL：2d图形
+        SSl：安全套接层：网络连接；
+        libc：为linux提供接口；
+
+        安卓运行库：
+            1：core lib：提供java编程语言的库
+            2：安卓平台的虚拟机；相当于运行在linux系统上的虚拟机；类似玉windows电脑上的虚拟机功能；
+    4：linux内核层
+        支持安卓的最低层的东西；如电量管理；
+
+    开发人员可以使用java语言来编写android程序，但是也可以用其他的语言进行；
+
+
+安卓的开发流程：
+1：开始
+2：编辑布局文件：通俗讲，就是我们能看见的界面；
+3：为每一个控件添加实现；如按钮；给他添加时间，(也就是i业务逻辑的实现）
+4：运行调试：（在之前还有很多操作；如网络请求，蓝牙请求，权限问题）
+5：打包部署：包名：为了解决包名的重复，为每一个app的签名文件，包名和签名文件进行打包部署；签名文件不同，包名一样也不会重复；
+    这是一个简单的过程；资源文件，还由其他的逻辑和资源实现；
+
+
+搭建android开发环境；
+1：JDK ：需要配置：JAVA_HOME和CLASSPATH:%JAVA_HOME%\jre\lib\rt.jar
+2：android SDK
+3：android studio :本地没有就自己设置一个目录进行下载；
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
