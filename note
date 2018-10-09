@@ -104,7 +104,7 @@ Android 系统介绍；
 搭建android开发环境；
 1：JDK ：需要配置：JAVA_HOME和CLASSPATH:%JAVA_HOME%\jre\lib\rt.jar
 2：android SDK
-3：android studio :本地没有就自己设置一个目录进行下载；
+3：android studio :本地没有就自己设置一个目录进行下载；s
 
 
 
