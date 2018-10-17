@@ -12,12 +12,15 @@ from tqdm import tqdm
 
 # 数据的简单处理
 #将一些特殊符号的去除
+#
 def make_split(line):
+    # # 如果发现了。？就去掉，然后通过，隔开；
     # if re.match(r'.*([，...?!\.,!？])$',''.join(line)):
     #     return []
     return line
 
 # 判断是否是一个好句子；
+# 判断英文字符，是否都大于2个，如果大于就返回False
 def good_line(line):
     if len(re.findall(r'[a-zA-Z0-9]',''.join(line))) >2:
         return False
@@ -25,6 +28,7 @@ def good_line(line):
 
 
 # 简单的处理
+# 然后做一下替换；
 def regular(sen):
     # sen = re.sub(r'\.{3,100}','...',sen)
     # sen = re.sub(r'...{2,100}','...',sen)
@@ -43,6 +47,7 @@ def my_main(limit=20,x_limit=3,y_limit=6):
         group = []
 
         for line in tqdm(fp):
+            # print(line)
             if line.startswith('M '):
                 # 去掉回车
                 line = line.replace('\n','')
@@ -68,11 +73,15 @@ def my_main(limit=20,x_limit=3,y_limit=6):
         print(groups[1:2])
         x_data = []
         y_data = []
+
+        # 进度条的形式展示；
         for group in tqdm(groups):
             # 进行枚举
             # print(group[1:2])
             # 一个小的grup是一个完整的对话；groups整个对话的数据；
             # 这里是拿到的是三行数据；
+
+            # 这里是做问答对的处理
             for i,line in enumerate(group):
                 #
                 last_line = None
@@ -80,16 +89,16 @@ def my_main(limit=20,x_limit=3,y_limit=6):
                     last_line = group[i-1]
                     if not good_line(last_line):
                         last_line =None
-                nex_line =None
+                next_line =None
                 if i <len(group)-1:
                     next_line = group[i+1]
                     if not good_line(next_line):
                         next_line =None
-                nex_next_line = None
+                next_next_line = None
                 if i<len(group)-2:
-                    nex_next_line = group[i+2]
-                    if not good_line(nex_next_line):
-                        nex_next_line=None
+                    next_next_line = group[i+2]
+                    if not good_line(next_next_line):
+                        next_next_line=None
 
                 if next_line:
                     x_data.append(line)
@@ -97,17 +106,19 @@ def my_main(limit=20,x_limit=3,y_limit=6):
                 if last_line and next_line:
                     x_data.append(last_line+make_split(last_line) +line)
                     y_data.append(next_line)
-                if next_line and nex_next_line:
+                if next_line and next_next_line:
                     x_data.append(line)
-                    y_data.append(next_line+make_split(next_line)+nex_next_line)
+                    y_data.append(next_line+make_split(next_line)+next_next_line)
     print(len(x_data),len(y_data))
 
     # 取出问和答的数据：
+    # 只取前20个字符进行输出；
     for ask ,answer in zip(x_data[:20],y_data[:20]):
         print(''.join(ask))
         print(''.join(answer))
         print('-'*20)
     data = list(zip(x_data,y_data))
+
     data = [
         (x,y)
         for x,y in data

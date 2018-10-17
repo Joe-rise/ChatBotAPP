@@ -9,7 +9,9 @@ import numpy as np
 
 # 编码
 class WordSequence(object):
+    # 填充标签
     PAD_TAG = '<pad>'
+    # 位置标签
     UNK_TAG = '<unk>'
     START_TAG = '<s>'
     END_TAG = '</s>'
@@ -22,6 +24,7 @@ class WordSequence(object):
 
 
     def __init__(self):
+        # 初始化基本的字典
         self.dict ={
                 WordSequence.PAD_TAG:WordSequence.PAD,
                 WordSequence.UNK_TAG:WordSequence.UNK,
@@ -31,27 +34,32 @@ class WordSequence(object):
         # 定义是否训练，刚开始是没有训练的；
         self.fited = False
 
-        # 把字换成index
+        # 把词转化成字典；
     def to_index(self,word):
         assert self.fited, 'WordSequence 尚未进行fit操作'
         if word in self.dict:
+            # 如果在字典中就返回他的位置；
             return self.dict[word]
         return WordSequence.UNK
 
-    # 把index（标签）换成字
+    # 把index（标签）换成词
     def to_word(self,index):
         assert self.fited, 'WordSequence 尚未进行fit操作'
+        # 字典就是key ，value的形式；做一个匹配；如果匹配成功返回key；佩佩失败返回unk
         for k,v in self.dict.items():
             if v==index:
                 return k
         return WordSequence.UNK_TAG
 
     # 返回字典的大小
+    # 此处做了一下长度的处理：
+    # 字典需要进行补位；
     def size(self):
         assert self.fited,'wordSequence 尚未进行fit操作'
         return len(self.dict) +1
 
     # 返回当前字典的长度；
+    # 重写系统方法：返回字典长度；
     def __len__(self):
         return self.size()
 
