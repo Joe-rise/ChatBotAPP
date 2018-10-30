@@ -6,6 +6,12 @@ from word_sequence import WordSequence
 VOCAB_SIZE_THRESHOLD_CPU = 50000
 
 '''获取当前GPU信息'''
+'''训练比较大的模型。用GPU更好。因为，cpu再多也没有gpu好；
+在哪初始化，数据的处理主要需要使用内存，设置一个临界值，
+如果数据量过大就需要使用cpu了；
+
+'''
+
 def _get_available_gpus():
     local_device_protos = device_lib.list_local_devices()
     return [x.name for x in local_device_protos if x.device_type == 'GPU']
@@ -198,6 +204,7 @@ def test_batch_flow_bucket():
 
 
 if __name__ == '__main__':
+    print(_get_available_gpus())
     # size = 300000
     # print(_get_embed_device(size))
-    test_batch_flow_bucket()
+    # test_batch_flow_bucket()
